@@ -12,5 +12,6 @@ int execute_commands(char **args);
 
 int console_help(char **args);
 int console_exit(char **args);
+int console_crypto(char **args);
 
 #endif //ENDLESSSHELL_SHELL_H

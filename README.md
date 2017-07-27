@@ -1,2 +1,2 @@
 # EndlessShell
-Shell written in C, including existing commands + custom ones
+Shell written in C/C++, including existing commands + custom ones

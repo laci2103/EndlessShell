@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "lib/crypto/crypto.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -12,11 +13,13 @@ int console_help(char **args);
 int console_exit(char **args);
 
 char *builtin_str[] = {
+        "crypto",
         "help",
         "exit"
 };
 
 int (*builtin_func[]) (char **) = {
+        &console_crypto,
         &console_help,
         &console_exit
 };
@@ -25,14 +28,22 @@ int num_builtins() {
     return sizeof(builtin_str) / sizeof(char *);
 }
 
+int console_crypto(char **args) {
+    if (strcmp(args[1],"-rot13")==0) {
+        printf("%s\n", rot13(args[2]));
+    }
+
+    return 1;
+}
+
 int console_help(char **args)
 {
     int i;
-    printf("EndlessShell\n");
-    printf("Available built in:\n");
+    printf("\tEndlessShell\n");
+    printf("\tAvailable built in:\n");
 
     for (i = 0; i < num_builtins(); i++) {
-        printf("-%s\n", builtin_str[i]);
+        printf("\t-%s\n", builtin_str[i]);
     }
 
     return 1;
@@ -138,6 +149,9 @@ int execute_commands(char **args)
 
 void execute_console(void)
 {
+    // Reset input buffer
+    fseek(stdin, 0, SEEK_END);
+
     char *line;
     char **args;
     int response;
