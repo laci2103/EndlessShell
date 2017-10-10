@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2002-2003, Asim Jalis (asimjalis(nospam)gmail.com). All rights reserved.
+ *
+ * CuTest is distributed under the zlib/libpng license.
+ */
+
 #ifndef CU_TEST_H
 #define CU_TEST_H
 

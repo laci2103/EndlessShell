@@ -1,13 +1,11 @@
+//
+// Created by IanLachance on 5/27/2017.
+//
+
 #include "shell.h"
 #include "lib/crypto/crypto.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-#define BUFFER_SIZE 1024
-#define TOKEN_SIZE 64
-#define TOKEN_DELIMITER " \t\r\n\a"
+// TODO: Intelligent token wrap-up -> crypto (-ceasar <DATA>) (-s <SHIFT>)
 
 int console_help(char **args);
 int console_exit(char **args);
@@ -29,8 +27,13 @@ int num_builtins() {
 }
 
 int console_crypto(char **args) {
-    if (strcmp(args[1],"-rot13")==0) {
-        printf("%s\n", rot13(args[2]));
+    char *encrypted_message;
+
+    // crypto -ceasar <TEXT> -s <SHIFT>
+    if (strcmp(args[1],"-ceasar")==0) {
+        encrypted_message = ceasar_cipher(args[2], atoi(args[4]));
+        printf("%s\n", encrypted_message);
+        free(encrypted_message);
     }
 
     return 1;
